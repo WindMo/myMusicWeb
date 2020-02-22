@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mo.music.dao.mapper.SettingCRUD">
+	<!-- 查询是否允许  登陆后试听 -->
+	<select id="IsLandingAuditions" resultType="com.mo.music.entity.Setting">
+		select Setting_ID,IsLandingAuditions from setting
+	</select>
+	
+	<!-- 修改设置-->
+	<update id="Modify_settings" parameterType="com.mo.music.entity.Setting" flushCache="true">
+		update setting 
+		<set>
+			<if test="null != IsLandingAuditions and '' != IsLandingAuditions">
+				IsLandingAuditions=#{IsLandingAuditions},
+			</if>
+		</set>
+	</update>
+	
+</mapper>

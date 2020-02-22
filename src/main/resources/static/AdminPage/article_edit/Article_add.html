@@ -1,0 +1,144 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport"
+	content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+  <link rel="stylesheet" type="text/css" href="/static/MusicStyle/css/H-ui.min.css"/>
+</head>
+<body style="">
+<article class="page-container" style="">
+
+	<div class="form form-horizontal" id="from-article-add" novalidate="novalidate">
+	<div class="row cl">
+		<label class="form-label col-xs-4 col-sm-2"><span
+				class="c-red">*</span>文章标题：</label>
+		<div class="formControls col-xs-8 col-sm-9">
+			<input type="text" class="input-text valid" value="" placeholder=""
+				   id="articletitle">
+		</div>
+	</div>
+
+	<div class="row cl">
+		<label class="form-label col-xs-4 col-sm-2"><span
+				class="c-red">*</span>固定链接：</label>
+		<div class="formControls col-xs-8 col-sm-9">
+			<input type="text" class="input-text valid"
+				   id="fixedlink">
+		</div>
+	</div>
+
+	<div class="row cl">
+		<label class="form-label col-xs-4 col-sm-2"><span
+				class="c-red">*</span>文章状态：</label>
+		<div class="formControls col-xs-8 col-sm-9">
+					<span class="select-box">
+						<select id="articletype" class="select">
+							<option value="0">发布</option>
+							<option value="1">草稿</option>
+						</select>
+					</span>
+		</div>
+	</div>
+
+	<div class="row cl">
+		<label class="form-label col-xs-4 col-sm-2">文章内容：</label>
+		<div class="formControls col-xs-8 col-sm-9">
+					<textarea id="ArticleContent" cols="" rows="" class="textarea"
+							  placeholder="说点什么..." datatype="*10-100" dragonfly="true"
+							  nullmsg="备注不能为空！"></textarea>
+		</div>
+	</div>
+
+	<div class="row cl">
+		<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
+			<button onclick="article_save_submit();"
+					class="btn btn-primary radius" type="submit">
+				<i class="Hui-iconfont"></i> 保存并提交
+			</button>
+		</div>
+	</div>
+	</div>
+</article>
+
+<script type="application/javascript">
+    //提交文章内容
+    function article_save_submit() {
+        //获取表单Info
+		var Title = $("#articletitle").val();//标题
+		var Link  = $("#fixedlink").val();   //固定链接
+		var Type  = $("#articletype").val(); //文章状态
+		var Content=$("#ArticleContent").val();//文章内容
+        if(Type==0){
+            Type  = "发布";
+        }else{
+            Type  = "草稿";
+        }
+
+        //验证  标题  内容
+		if(validateform(Title,1)&&validateform(Content,1)){
+            //验证 固定链接
+		    if(Link.match(/^([hH][tT]{2}[pP]:\/\/|[hH][tT]{2}[pP][sS]:\/\/)/)){
+		        //验证成功,提交表单信息
+				//文章添加 Article_ID 要 传入  Article_add(固定值)
+                $.post("/Article_management/Save_Article",{
+                    Article_ID:"Article_add",
+                    Title:Title,
+                    Link :Link,
+                    Type :Type,
+                    Content:Content
+				},function(result){
+                    $.each(JSON.parse(result), function (i, Save_ArticleInfo) {
+                        if(Save_ArticleInfo.State=="true"){
+                            // 文章添加成功
+                            // 删去文章编辑页面
+                            $("#article_edit").html("");
+                            // 重新请求文章列表
+                            $.ajax({
+                                type : "POST",
+                                contentType : "application/x-www-form-urlencoded;charset=utf-8",
+                                scriptCharset : 'utf-8',
+                                dataType : 'json',
+                                url : "/Article_management/All_ArticleInfo",
+                                success : function(All_ArticleInfo) {
+                                    $(".ArticleInfo").html(All_ArticleInfo)
+                                }
+                            });
+							// 显示文章列表
+                            $("#DataTables_Table_0,.article").show();
+						}else{
+                            //添加文章出错
+							alert("添加文章出错");
+						}
+                    })
+                });
+			}else{
+		        alert("固定链接必须以 http:// 或者  https://  开头");
+			}
+		}else{
+            alert("非法字符,请重新输入");
+		}
+    }
+
+    /*验证表单  传入 表单值 */
+    function validateform(value,lessThan) {
+        if(value.match(/^\s+$/)||value.match(/^[ ]+$/)
+            || value.match(/^[ ]/)
+            || value.match(/^[ ]*$/)
+            || value.match(/^\s*$/)) {
+            return false;
+        }else{
+            if(value.length<lessThan){
+                return false;
+			}else{
+                return true;
+			}
+		}
+    }
+
+</script>
+</body>
+</html>

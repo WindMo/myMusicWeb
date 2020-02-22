@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mo.music.dao.mapper.HistoricalDownloadCRUD">
+
+	<!-- 根据用户ID查询历史下载-->
+	<select id="myDownloadInquire" resultType="com.mo.music.entity.HistoricalDownload">
+		select Historical_DownloadID,User_ID,Song_ID from historical_download where User_ID=#{_parameter}
+	</select>
+	
+	<!-- 根据用户ID集合查询历史下载-->
+	<select id="myDownloadInquires" resultType="com.mo.music.entity.HistoricalDownload">
+		select Historical_DownloadID,User_ID,Song_ID from historical_download where User_ID = 
+        <foreach collection="list" index="index" item="item">
+        	<if test="index==0">
+        		#{item.User_ID}
+        	</if>
+        </foreach>
+        <foreach collection="list" index="index" item="item">
+        	<if test="index==0">
+        		limit #{item.Song_ID},30
+        	</if>
+        </foreach>
+	</select>
+	
+	<!-- 历史下载信息添加 -->
+	<insert id="addHistoricalDownloadAdd" parameterType="java.util.List" flushCache="true">
+		insert into
+		historical_download (User_ID,Song_ID)
+		values
+		(
+		#{User_ID},
+		#{Song_ID}
+		)
+	</insert>
+	
+		<!-- 查看分类结果总数 -->
+	<select id="toTal" resultType="java.math.BigDecimal">
+		SELECT count(*) 
+		from historical_download 
+		WHERE ${_parameter}
+	</select>
+	
+</mapper>

@@ -1,0 +1,84 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>国际音乐-文章</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="format-detection" content="telephone=no">
+	<link rel="icon" type="image/png"
+      href="https://geo-pro.beatport.com/static/5b31281ea6699ee1a404a376bfbb42c2aa1db049/images/favicon-32x32.png"
+      sizes="32x32">
+    <script src="/static/MusicStyle/js/jquery.js"></script>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        body{
+            background: #222;
+        }
+        .wenzhang{
+            max-width: 1100px;
+            padding-bottom: 40px;
+            margin: 0 auto;
+            margin-top: 5%;
+            color: #fff;
+        }
+        .wenzhang h2{
+            font-size: 30px;
+            font-weight: 500;
+            margin-left: 30px;
+            line-height: 46px;
+            color: #6fb828;
+        }
+        .textmain{
+            width: 90%;
+            height: 80%;
+            margin: 0 auto;
+            background: #222;
+            margin-top: 2%;
+        }
+        .textmain p{
+            text-indent: 2em;
+            line-height: 30px;
+        }
+        textarea{
+            background: none;
+            border: none;
+            width: 90%;
+            min-height: 500px;
+            font-size: 16px;
+            color: #ccc;
+            outline: none;
+            resize:none;
+        }
+
+
+    </style>
+</head>
+    <body>
+        <div class="wenzhang">
+            <h2>文章标题</h2>
+
+
+            <div class="textmain">
+                <textarea disabled></textarea>
+            </div>
+        </div>
+        <script>
+
+            $.each(${article_content}, function (i, Info) {
+                console.log(Info)
+                $(".wenzhang h2").html(Info.label)// 标题
+
+                $(".textmain textarea").html(Info.article_Content);// 内容
+
+            });
+        </script>
+    </body>
+
+</html>

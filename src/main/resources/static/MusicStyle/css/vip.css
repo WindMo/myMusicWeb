@@ -1,0 +1,52 @@
+.chongzhi{
+    width: 100%;
+    height: 500px;
+    margin-top: 3%;
+}
+.chongzhi ul li{
+    float: left;
+    text-align: center;
+    color: #000;
+    width: 20%;
+    margin: 0 2.3%;
+}
+.chongzhi ul li img{
+    width: 100%;
+}
+.chongzhi ul li .czbj{
+    background: #ccc;
+    width: 96%;
+    margin-left: 2%;
+    margin-top: -10px;
+    border-radius: 0 0 8px 8px;
+}
+.chongzhi ul li span{
+    font-size: 48px;
+    color: red;
+}
+.chongzhi ul li h3{
+    line-height: 40px;
+    padding-top: 4px;
+}
+.chongzhi ul li b{
+    line-height: 36px;
+    font-size: 14px;
+}
+.chongzhi ul li .bb p{
+    border-bottom: 1px solid #999;
+    width: 94%;
+    margin-left: 3%;
+}
+.chongzhi ul li .qian{
+    border-bottom: 1px red dashed;
+}
+.chongzhi ul li button{
+    width: 70%;
+    height: 28px;
+    margin-top: 20px;
+    color: #fff;
+    background: red;
+    border: none;
+    border-radius: 7px;
+    margin-bottom: 20px;
+}

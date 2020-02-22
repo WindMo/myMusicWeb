@@ -1,0 +1,421 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>国际音乐-注册</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="format-detection" content="telephone=no">
+	<link rel="stylesheet" href="font/css/font-awesome.min.css">
+    <script src="/static/MusicStyle/js/jquery.js"></script>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        body{
+            background: #262626;
+        }
+        .form{
+            max-width: 666px;
+            margin: 5% auto;
+        }
+        .form h2{
+            font-size: 40px;
+            font-weight: 100;
+            color: #fff;
+        }
+        .form p span{
+            float: right;
+            font-size: 12px;
+            color: #999;
+        }
+        .form .p1{
+            color: #999;
+            margin-top: 4%;
+        }
+        .biao{
+            float: right;
+            margin-top: 5%;
+        }
+        .biao li{
+            list-style: none;
+            line-height: 4em;
+        }
+        .biao li span{
+            display: inline-block;
+            width: 120px;
+            text-align: right;
+            color: #8c8c8c;
+            margin-right: 10px;
+            font-size: 18px;
+        }
+        .biao li input{
+            width: 400px;
+            height: 24px;
+            padding-left: 0.5em;
+            border-radius: 7px;
+            outline: none;
+            font-size: 14px;
+        }
+        .biao li input[type="radio"]{
+            width: 18px;
+            height: 18px;
+            position: relative;
+            top:4px;
+        }
+        .biao li label{
+            margin-left: 20px;
+            color: #8c8c8c;
+        }
+        .biao li i{
+            text-align: right;
+            display: inline-block;
+            width: 500px;
+            float: right;
+            line-height: 6px;
+            margin-right: 30%;
+            font-size: 12px;
+            color: #999;
+            position: relative;
+            top:-10px;
+        }
+        .biao li input[type="button"]{
+            width: 110px;
+            margin-left: 30px;
+            height: 28px;
+            font-size: 12px;
+        }
+        #usre_pwd{
+            position: relative;
+            left: -4px;
+        }
+        #enrBtn{
+            float: right;
+            margin-top: 5%;
+            background: #94d500;
+            color: #fff;
+            width: 100px;
+            height: 28px;
+            border: none;
+            border-radius: 4px;
+            outline: none;
+            margin-right: 10px;
+        }
+        #enrBtn:hover{
+            background: #82BC00;
+        }
+        .xian{
+            width: 98%;
+            margin-left: 2%;
+            height: 1px;
+            background: #999;
+            margin-top: 5%;
+            margin-bottom: 15px;
+        }
+        .fotlogin span{
+            font-size: 16px!important;
+        }
+
+    </style>
+</head>
+    <body>
+        <div class="form">
+            <p><span>有一个Beatport <br> ID?<a href="login.html" style="color: #39c1de;">在此登录</a></span></p>
+            <p class="p1">欢迎来到Beatport！请填写以下字段：</p>
+
+            <div class="biao">
+                <ul>
+                    <li><span>用户名</span><input type="text" id="user_name" required="required">
+                    	<br>
+                    	<i class="Notice" style="color:red;"></i>
+                    </li>
+                    <li><span>密  码</span>
+                        <input type="password" id="user_pwd" maxlength="20" onfocus="Verifying_Username();" required="required" onkeyup="this.value=this.value.replace(/[^\w]/g,'');">
+                        <br>
+                        <i class="Password">您的密码必须至少包含9个字符，不包含空格与特殊符号。请记住，您的密码区分大小写</i>
+                    </li>
+                    <li><span>确认密码</span><input type="password" id="user_pwds" required="required">
+                        <br>
+                        <i class="Confirm_Password" style="color:red"></i>
+                    </li>
+                    <li><span>用户邮箱</span><input type="email" id="user_email" required="required" style="width: 260px">
+                    <input type="button" id="getting" onclick="getEmail()" value="免费获取邮箱验证码">
+                        <br>
+                        <i class="UserEmail" style="color:red"></i>
+                    </li>
+                    <li><span>验证码</span><input type="text" id="user_yanzheng" onfocus="Verification_Email();">
+                        <br>
+                        <i class="Verification_Code" style="color:red"></i>
+                    </li>
+                    <li><span>性  别</span>
+                        <label for="nan">男</label><input type="radio" name="radio" value="男" checked="checked" id="nan">
+                        <label for="nv">女</label><input type="radio" name="radio" value="女" id="nv">
+                    </li>
+
+                    <li><button id="enrBtn" onclick="enrCheck()">创建账户</button></li>
+                </ul>
+            </div>
+            <div style="clear: both;"></div>
+
+            <div class="xian"></div>
+            <p class="fotlogin"><span>已经有一个Beatport帐户？<a href="login.html" style="color: #39c1de;">登录</a></span></p>
+        </div>
+
+
+        <script>
+        	//验证用户名是否存在
+        	function Verifying_Username() {
+        		if($("#user_name").val().length>4){
+        			$(".Notice").html("");
+        			if(UserNameIsEmpty()==true){
+        				return false;
+        			}else{
+        				return true;
+        			}
+        		}else{
+        			$(".Notice").html("用户名必须至少有5个字符长。");
+        			return false;
+        		}
+			}
+        	//获取用户名
+        	function UserNameIsEmpty(){
+                $.ajax({
+                    data : {
+                        "UserName" : $("#user_name").val()
+                    },
+                    type : "POST",
+                    contentType : "application/x-www-form-urlencoded;charset=utf-8",
+                    scriptCharset : 'utf-8',
+                    url : "/UserInfo/UserName_IsEmpty",
+                    success : function(JSONdata) {
+                        $.each(JSON.parse(JSONdata), function (i, Info) {
+                      	  if(Info.IsEmpty=="true"){
+                      		  $(".Notice").html(Info.State);
+                      		  return true;
+                      	  }else{
+                      		return false;
+                      	  }
+                        });
+                    }
+                });
+        	}
+
+        	
+            function enrCheck(){
+                var name = $("#user_name").val();
+                var pwd1 = $("#user_pwd").val();
+                var pwd2 = $("#user_pwds").val();
+                var sex = $("input[name='radio']:checked").val();
+                
+                //验证用户名
+                if(Verifying_Username()==true){
+                    //验证密码
+                    if(pwd1.length<9){
+                    	$(".Password").html("密码必须至少包含9个字符");
+                    }else{
+                    	//清除警告消息
+                    	$(".Password").html("");
+                        //验证二次输入密码
+                        if(pwd1!=pwd2){
+                        	$(".Confirm_Password").html("密码不匹配");
+                        }else{
+                        	$(".Confirm_Password").html("");
+                            //验证邮箱
+                            if(!GetEmailIsTrue()||UserEmail_IsEmpty()==true){
+                            	$(".UserEmail").html("Email格式错误或者已存在");
+                            }else{
+                            	$(".UserEmail").html("");
+                                //验证发送的邮箱验证码
+                                if(getCookie("EmailVerification_Code")==$("#user_yanzheng").val()){
+                                	$(".Verification_Code").html("");
+                                	//验证成功注册一个用户
+                                	$.ajax({
+                                		data : {
+                                            "UserName" : name,//传入页面数据
+                                            "Password" : pwd1,
+                                            "User_Email" : $("#user_email").val(),
+                                            "User_Sex" : sex
+                                		},
+                                		type : "POST",
+                                		contentType : "application/x-www-form-urlencoded;charset=utf-8",
+                                		scriptCharset : 'utf-8',
+                                		url : "/UserInfo/Create_Account",
+                                		success : function(JSONdata) {
+                                            //解析JSON数据
+                                            $.each(JSON.parse(JSONdata), function (i, Info) {
+                                            	if(Info.State=="User creation failure"){
+                                            		alert(Info.State);
+                                            	}else{
+                                            		delCookie("EmailVerification_Code");
+                                            		$(location).attr('href', '/login.html');
+                                            	}
+                                            });
+                                		}
+                                	});
+                                }else{
+                                	$(".Verification_Code").html("验证码不正确或已过期");
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+
+            function GetEmailIsTrue(){
+                var text = $("#user_email").val();
+                var regex = /^([0-9A-Za-z\-_\.]+)@([0-9a-z]+\.[a-z]{2,3}(\.[a-z]{2})?)$/g;
+
+                if (text.match(/^\s+$/) || text.match(/^[ ]+$/)
+                        || text.match(/^[ ]/)
+                        || text.match(/^[ ]*$/)
+                        || text.match(/^\s*$/)) {
+                    return false;
+                } else {
+                    if(text.length>85){
+                      return false;
+                    }else{
+
+                        if (regex.test(text)) {
+                        	$(".UserEmail").html("");
+                            return true;
+                        } else {
+                           return false;
+                        }
+                    }
+                }
+            }
+        </script>
+
+<script>
+	//设置禁止60秒
+	var wait = 60;
+	function time() {
+		if (wait == 0) {
+			$('#getting').attr("disabled",false);
+			$("#getting").val("免费获取邮箱验证码");
+			wait = 60;
+		} else {
+			$('#getting').attr("disabled",true);
+			$("#getting").val(wait+"秒后可以重新发送");
+			wait--;
+			setTimeout(function() {
+				time()
+			}, 1000)
+		}
+	}
+	function getEmail() {
+		var text = $("#user_email").val();
+		if (!GetEmailIsTrue()) {
+			$(".UserEmail").html("Email输入错误");
+		} else {
+			if(UserEmail_IsEmpty()==false){
+				//邮箱格式输入正确,禁止按钮60s
+				time();
+				$.ajax({
+					data : {
+					"Email_Address" : text
+					},
+					type : "POST",
+					contentType : "application/x-www-form-urlencoded;charset=utf-8",
+					scriptCharset : 'utf-8',
+					url : "/EMail/Mailbox_Verification",
+					success : function(JSONdatas) {
+						//解析JSON数据
+						$.each(JSON.parse(JSONdatas),function(i,datas) {
+							if (datas.State == "true") {
+								setCookie("EmailVerification_Code",datas.Verification_Code);
+								} else {
+									$(".UserEmail").html("发送失败");
+									}
+							});
+						}
+					});
+			}else{
+				$(".UserEmail").html("该邮箱已被注册");
+				}
+			}
+		}
+	
+	//验证邮箱是否存在
+	function UserEmail_IsEmpty() {
+		var IsEmpty = false;
+		$.ajax({
+			data : {
+				"User_Email" : $("#user_email").val()
+			},
+			type : "POST",
+			contentType : "application/x-www-form-urlencoded;charset=utf-8",
+			scriptCharset : 'utf-8',
+			cache : false,
+			async : false,
+			url : "/UserInfo/UserEmail_IsEmpty",
+			success : function(JSONdata) {
+
+				//解析JSON数据
+				$.each(JSON.parse(JSONdata), function(i, data) {
+					if (data.IsEmpty == "true") {
+						IsEmpty = true;
+					}
+				});
+			}
+		});
+		return IsEmpty;
+	}
+
+	//邮箱验证码
+	function Verification_Email() {
+		//获取邮箱验证码
+		var Verification_code = getCookie("EmailVerification_Code");
+		if (Verification_code == $("#user_yanzheng").val()) {
+			$(".Verification_Code").html("");
+		} else {
+			$(".Verification_Code").html("验证码不正确");
+		}
+	}
+	$("#user_yanzheng").blur(function() {
+		//获取邮箱验证码
+		var Verification_code = getCookie("EmailVerification_Code");
+		if (Verification_code == $("#user_yanzheng").val()) {
+			$(".Verification_Code").html("");
+		} else {
+			$(".Verification_Code").html("验证码不正确");
+		}
+	});
+
+	//设置Cookie
+	function setCookie(name, value) {
+		document.cookie = name + "=" + escape(value) + ";expires=" + 20000;
+	}
+
+	//读取Cookie
+	function getCookie(name) {
+		var arr, reg = new RegExp("(^| )" + name + "=([^;]*)(;|$)");
+
+		if (arr = document.cookie.match(reg))
+
+			return unescape(arr[2]);
+		else
+			return null;
+	}
+
+	//删除cookies 
+	function delCookie(name) {
+		var exp = new Date();
+		exp.setTime(exp.getTime() - 1);
+		var cval = getCookie(name);
+		if (cval != null)
+			document.cookie = name + "=" + cval + ";expires="
+					+ exp.toGMTString();
+	}
+</script>
+
+
+
+    </body>
+
+</html>

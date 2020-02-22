@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mo.music.dao.mapper.SettingCRUD">
+	
+	<!-- 查询歌曲的总数 -->
+	<select id="Songs_TotalNumberInquire" resultType="java.math.BigDecimal">
+		select count(*) from SongInfo
+	</select>
+	
+	<!-- 根据传入的limit查询分页数据 -->
+	<select id="According_tolimit_Inquire" resultType="com.mo.music.entity.SongInfo">
+		SELECT Song_ID,Song_Name,Song_Artists,Song_Label,Song_Genre,Song_ReleasedTime,Song_Type,Song_AuditionAddress,Song_DownloadAddress,Song_Imge from song_info  order by Song_ReleasedTime desc ${_parameter} 
+	</select>
+	
+	<!-- 根据歌曲ID查询SongInfo -->
+	<select id="According_toSongID_Inquire" resultType="com.mo.music.entity.SongInfo">
+		SELECT Song_ID,Song_Name,Song_Artists,Song_Label,Song_Genre,Song_ReleasedTime,Song_Type,Song_AuditionAddress,Song_DownloadAddress,Song_Imge from song_info where Song_ID=${_parameter}
+	</select>
+	
+		<!-- 根据歌曲ID查询SongInfo -->
+	<select id="findMultiple" resultType="com.mo.music.entity.SongInfo">
+		SELECT * from song_info where Song_ID in
+		<foreach collection="list" index="index" item="item" open="(" separator="," close=")">
+		#{item}
+		</foreach>
+	</select>
+	
+	<!-- 定义搜索功能 -->
+	<select id="SongInfo_Search" resultType="com.mo.music.entity.SongInfo">
+		SELECT Song_ID,Song_Name,Song_Artists,Song_Label,Song_Genre,Song_ReleasedTime,Song_Type,Song_AuditionAddress,Song_DownloadAddress,Song_Imge 
+		from song_info 
+		WHERE LOCATE(#{Song_Name}, `Song_Artists`)>0 or LOCATE(#{Song_Name}, `Song_Label`)>0 or LOCATE(#{Song_Name}, `Song_Name`)>0 order by Song_ReleasedTime desc ${Song_Artists}
+	</select>
+	
+	<!--  分类 -->
+	<select id="Conditional_query" resultType="com.mo.music.entity.SongInfo">
+		SELECT Song_ID,Song_Name,Song_Artists,Song_Label,Song_Genre,Song_ReleasedTime,Song_Type,Song_AuditionAddress,Song_DownloadAddress,Song_Imge 
+		from song_info 
+		WHERE ${_parameter}
+	</select>
+	
+	<!-- 查看搜索结果总数 -->
+	<select id="The_number_of_search_results" resultType="java.math.BigDecimal">
+		SELECT count(*) 
+		from song_info 
+		WHERE LOCATE(#{Song_Name}, `Song_Artists`)>0 or LOCATE(#{Song_Name}, `Song_Label`)>0 or LOCATE(#{Song_Name}, `Song_Name`)>0
+	</select>
+	
+	<!-- 查看分类结果总数 -->
+	<select id="Classification_conditions_Total_Number" resultType="java.math.BigDecimal">
+		SELECT count(*) 
+		from song_info 
+		WHERE ${_parameter}
+	</select>
+	
+	<!-- 查找 排行榜前100名 -->
+	<select id="getTop" resultType="com.mo.music.entity.SongInfo">
+		SELECT * 
+		from song_info 
+		order by `download_count` desc limit 100;
+	</select>
+	
+	<!-- 查看歌曲下载信息 -->
+	<select id="queryDownloadInfo" resultType="com.mo.music.entity.SongInfo">
+		SELECT * 
+		from song_info 
+		WHERE Song_ID in 
+		<foreach collection="list" index="index" item="item" open="(" separator="," close=")">
+		#{item.Song_ID}
+		</foreach>
+	</select>
+	
+	<!-- 添加歌曲信息 -->
+	<insert id="Add_Song" parameterType="java.util.List" flushCache="true">
+		insert into
+		song_info(Song_Name,Song_Artists,Song_Label,Song_Genre,Song_ReleasedTime,Song_Type,Song_AuditionAddress,Song_Imge)
+		values
+		<foreach collection ="list" item="reddemCode" index= "index" separator =",">
+		(
+		#{reddemCode.Song_Name},
+		#{reddemCode.Song_Artists},
+		#{reddemCode.Song_Label},
+		#{reddemCode.Song_Genre},
+		#{reddemCode.Song_ReleasedTime},
+		#{reddemCode.Song_Type},
+		#{reddemCode.Song_AuditionAddress},
+		#{reddemCode.Song_Imge}
+		)
+		</foreach >
+	</insert>
+	
+	<!-- 修改歌曲信息-->
+	<update id="Modify_SongInfo" parameterType="com.mo.music.entity.SongInfo" flushCache="true">
+		update song_info 
+		<set>
+			<if test="null != Song_Name and '' != Song_Name">
+				Song_Name=#{Song_Name},
+			</if>
+			<if test="null != Song_Artists and '' != Song_Artists">
+				Song_Artists=#{Song_Artists},
+			</if>
+			<if test="null != Song_Label and '' != Song_Label">
+				Song_Label=#{Song_Label},
+			</if>
+			<if test="null != Song_Genre and '' != Song_Genre">
+				Song_Genre=#{Song_Genre},
+			</if>
+			<if test="null != Song_ReleasedTime and '' != Song_ReleasedTime">
+				Song_ReleasedTime=#{Song_ReleasedTime},
+			</if>
+			<if test="null != Song_Type and '' != Song_Type">
+				Song_Type=#{Song_Type},
+			</if>
+			<if test="null != Song_AuditionAddress and '' != Song_AuditionAddress">
+				Song_AuditionAddress=#{Song_AuditionAddress},
+			</if>
+			<if test="null != Song_DownloadAddress and '' != Song_DownloadAddress">
+				Song_DownloadAddress=#{Song_DownloadAddress},
+			</if>
+			<if test="null != Song_Imge and '' != Song_Imge">
+				Song_Imge=#{Song_Imge},
+			</if>
+		</set>
+		where Song_ID=#{Song_ID}
+	</update>
+	
+	<!-- 修改歌曲信息-->
+	<update id="Modify_Downloader" parameterType="com.mo.music.entity.SongInfo" flushCache="true">
+		update song_info 
+		<set>
+			<if test="null != Song_DownloadAddress and '' != Song_DownloadAddress">
+				Song_DownloadAddress=#{Song_DownloadAddress},
+			</if>
+		</set>
+		where Song_ID=#{Song_ID}
+	</update>
+	
+		<!-- 修改歌曲信息-->
+	<update id="downloadRank" parameterType="com.mo.music.entity.SongInfo" flushCache="true">
+		update song_info 
+		<set>
+			`download_count`=`download_count`+1
+		</set>
+		where Song_ID in
+		<foreach collection="list" index="index" item="item" open="(" close=")" separator=",">
+			#{item.Song_ID}
+		</foreach>
+	</update>
+	
+	<!-- 删除歌曲信息 -->
+	<delete id="SongInfo_Delete" parameterType="java.lang.String">  
+        DELETE FROM song_info WHERE Song_ID = #{_parameter}
+	</delete>
+	
+	<!-- 查询歌曲试听地址 -->
+	<select id="According_toAuditionAddress_Inquire" resultType="java.math.BigDecimal">
+		SELECT Song_ID from song_info where Song_AuditionAddress= #{_parameter}
+	</select>
+	
+</mapper>

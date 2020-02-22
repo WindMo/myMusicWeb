@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mo.music.dao.mapper.UserInfoCRUD">
+
+	<!-- 匹配用户名和密码?UserInfo:Error-->
+	<select id="UserloginInfo_Inquire" resultType="com.mo.music.entity.UserInfo">
+		select User_ID,User_Name,User_Password,User_Image,User_Sex,User_Job,Is_Administrators,User_Email from UserInfo where (User_Name=#{User_Name} or User_Email=#{User_Name}) and User_Password=#{User_Password}
+	</select>
+	
+	<!-- 判断用户名是否存在-->
+	<select id="UserName_IsEmpty" resultType="java.lang.String">
+		select User_Name from UserInfo where User_Name=#{_parameter} or User_Email=#{_parameter}
+	</select>
+	
+	<!-- 根据用户ID查询用户Info-->
+	<select id="According_toUserID" resultType="com.mo.music.entity.UserInfo">
+		select User_ID,User_Name,User_Password,User_Image,User_Sex,User_Job,Is_Administrators,User_Email from UserInfo where User_ID=#{_parameter}
+	</select>
+	
+	<!-- 查询用户的总数 -->
+	<select id="User_InfoNumberInquire" resultType="java.math.BigDecimal">
+		select count(*) from UserInfo
+	</select>
+	
+	<!-- 根据输入 的  信息  查询 -->
+	<select id="According_toUser_Info" resultType="com.mo.music.entity.UserInfo">
+		select User_ID,User_Name,User_Password,User_Image,User_Sex,User_Job,Is_Administrators,User_Email from UserInfo where ${_parameter}
+	</select>
+		
+	<!-- 添加用户信息-->
+	<insert id="Create_Account" parameterType="java.util.List" flushCache="true">
+		insert into
+		user_info(User_Name,User_Password,User_Image,User_Sex,Is_Administrators,User_Email)
+		values
+		<foreach collection ="list" item="reddemCode" index= "index" separator =",">
+		(
+		#{reddemCode.User_Name},
+		#{reddemCode.User_Password},
+		#{reddemCode.User_Image},
+		#{reddemCode.User_Sex},
+		#{reddemCode.Is_Administrators},
+		#{reddemCode.User_Email}
+		)
+		</foreach >
+	</insert>
+	
+	<!-- 修改用户密码-->
+	<update id="Modify_Password" parameterType="com.mo.music.entity.UserInfo" flushCache="true">
+		update user_info 
+		<set>
+			User_Password=#{User_Password} 
+		</set>
+		where User_ID=#{User_ID}
+	</update>
+	
+	<!-- 修改用户 头像/性别/职业-->
+	<update id="Modify_UserInfo" parameterType="com.mo.music.entity.UserInfo" flushCache="true">
+		update user_info 
+		<set>
+			<if test="null != User_Image and '' != User_Image">
+				User_Image=#{User_Image},
+			</if>
+			<if test="null != User_Sex and '' != User_Sex">
+				User_Sex=#{User_Sex},
+			</if>
+			<if test="null != User_Job and '' != User_Job">
+				User_Job=#{User_Job},
+			</if> 
+		</set>
+		where User_ID=#{User_ID}
+	</update>
+	
+	
+	<!-- 删除一个用户 -->
+	<delete id="Delete_User" parameterType="java.lang.String">  
+        DELETE FROM UserInfo WHERE User_ID = #{_parameter}
+	</delete>
+	
+	
+</mapper>

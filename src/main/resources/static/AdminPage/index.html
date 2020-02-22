@@ -1,0 +1,205 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="description" content="12">
+<meta name="author" content="12">
+<meta name="keyword" content="12">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>后台管理</title>
+<!-- start: Css -->
+<link rel="stylesheet" type="text/css" href="/static/MusicStyle/css/bootstrap.min.css">
+<!-- plugins -->
+  <link rel="stylesheet" type="text/css" href="/static/MusicStyle/css/plugins/font-awesome.min.css"/>
+  <link rel="stylesheet" type="text/css" href="/static/MusicStyle/css/plugins/simple-line-icons.css"/>
+  <link rel="stylesheet" type="text/css" href="/static/MusicStyle/css/plugins/animate.min.css"/>
+  <link rel="stylesheet" type="text/css" href="/static/MusicStyle/css/plugins/fullcalendar.min.css"/>
+  <link href="https://imgcache.qq.com/open_proj/proj_qcloud_v2/mc_2014/cos/v5/css/cos.css" rel="stylesheet">
+  <link href="/static/MusicStyle/css/style.css" rel="stylesheet">
+  <link href="/static/MusicStyle/font/Hui-iconfont/1.0.8/iconfont.css" rel="stylesheet">
+<!-- model css -->
+  <link rel="stylesheet" href="/static/MusicStyle/css/houtai.css">
+  <link rel="icon" type="image/png"
+      href="https://geo-pro.beatport.com/static/5b31281ea6699ee1a404a376bfbb42c2aa1db049/images/favicon-32x32.png"
+      sizes="32x32">
+<link rel="icon" type="image/png"
+      href="https://geo-pro.beatport.com/static/e635a7f033d7eb12d0dd1182915b2380e19075c9/images/favicon-194x194.png"
+      sizes="194x194">
+<link rel="icon" type="image/png"
+      href="https://geo-pro.beatport.com/static/5255feb2644fee0aabb0c68078958088ba0194f7/images/favicon-96x96.png"
+      sizes="96x96">
+<link rel="icon" type="image/png"
+      href="https://geo-pro.beatport.com/static/b464b7637bf313144095515ee50c57b6d7c7e68c/images/favicon-16x16.png"
+      sizes="16x16">
+
+<!-- end: Css -->
+<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9] -->
+  <!-- start: Javascript -->
+  <script src="/static/MusicStyle/js/jquery.min.js"></script>
+  <script src="/static/MusicStyle/js/jquery.ui.min.js"></script>
+  <script src="/static/MusicStyle/js/bootstrap.min.js"></script>
+  <!-- plugins -->
+  <script src="/static/MusicStyle/js/plugins/jquery.nicescroll.js"></script>
+  <!-- custom -->
+  <script src="/static/MusicStyle/js/main.js"></script>
+  <script src="/static/MusicStyle/js/html5shiv.min.js"></script>
+  <script src="/static/MusicStyle/js/respond.min.js"></script>
+  <script src="/static/MusicStyle/js/layui.js"></script>
+
+
+</head>
+
+<body id="mimin" class="dashboard">
+
+<div class="tanchuang">
+  <div class="nr">
+    <p align="right" class="clod">×</p>
+    <h3 class="error-Written">测试错误文字</h3>
+  </div>
+</div>
+<script>
+    $(".clod").click(function () {
+        $(".tanchuang").css("display","none");
+    })
+</script>
+<!-- start: Header -->
+<nav class="navbar navbar-default header navbar-fixed-top">
+  <div class="col-md-12 nav-wrapper">
+    <div class="navbar-header" style="width:100%;">
+      <div class="opener-left-menu is-open"> <span class="top"></span> <span class="middle"></span> <span class="bottom"></span> </div>
+      <a href="index.html" class="navbar-brand"> <b></b> </a>
+      <ul class="nav navbar-nav navbar-right user-nav">
+        <li class="user-name"><span id="User_Name">xxxxx</span></li>
+        <li class="dropdown avatar-dropdown"> <img src="" id="User_Img" class="img-circle avatar" alt="user name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"/>
+          <ul class="dropdown-menu user-dropdown">
+            <li><a href="#"><span class="fa fa-power-off"></span> 退出登录</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<!-- end: Header -->
+<div class="container-fluid mimin-wrapper">
+  <!-- start : Left Menu -->
+  <div id="left-menu"></div>
+    <script type="application/javascript">
+      // 加载左边的菜单
+      $("#left-menu").load('/AdminPage/LeftMenu.html');
+    </script>
+  <!-- end   : Left Menu -->
+  
+  <!-- start: content -->
+  <div id="content">
+    <!-- 文章发布系统-->
+    <div class="Article_ReleaseSystem">
+
+
+    <div class="panel">
+      <div class="panel-body">
+        <div class="col-md-6 col-sm-12">
+          <p class="animated fadeInDown"><span class="fa  fa-map-marker"></span>文章管理</p>
+        </div>
+      </div>
+    </div>
+
+    <a class="btn btn-primary radius article_add article"  data-title="添加资讯" onclick="article_add();"
+       href="javascript:;" style="position: relative;top: -10px;margin-left: 20px;"><i class="Hui-iconfont"></i> 添加文章</a>
+
+
+    <!-- start: data retrieval-->
+    <div id="DataTables_Table_0_filter" class="dataTables_filter article" style="float: right;margin-right: 8%;position: relative;top: -5px;">
+      <label>从当前数据中检索:
+        <input type="search" class="input-text " name="keyword" placeholder="输入关键字搜索" aria-controls="DataTables_Table_0" style="border: 1px solid #ccc;padding-left: 1em;height: 26px;">
+      </label>
+    </div>
+    <!-- end: data retrieval-->
+
+
+
+      <div class="col-md-12 padding-0 form-element">
+        <div class="col-md-12">
+          <div class="panel">
+            <div class="panel-heading">
+              <h3 class="Info">文章状态</h3>
+            </div>
+            <div class="panel-body">
+              <div class="responsive-table">
+                <div id="datatables-example_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <table class="table table-striped table-bordered dataTable no-footer" width="100%" cellspacing="0" style="width: 100%;">
+                        <thead>
+                        <tr role="row">
+                          <th class="sorting_asc" style="width: 60px;">文章ID</th>
+                          <th class="sorting" style="width: 60px;">标题</th>
+                          <th class="sorting" style="width: 60px;">链接</th>
+                          <th class="sorting" style="width: 60px;">状态</th>
+                          <th class="sorting" style="width: 60px;">栏目</th>
+                          <th class="sorting" style="width: 60px;">部位</th>
+                          <th class="sorting" style="width: 60px;">时间</th>
+                          <th class="sorting" style="width: 61px;">操 作</th>
+                        </tr>
+                        </thead>
+
+                        <tbody class="ListInfo"></tbody>
+                      </table>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="PageCodeTails" class="pag-number"></div>
+
+
+      <style>
+        .text-c.odd{
+          height: 50px!important;
+        }
+        table th,tr,td{
+          vertical-align:middle!important;
+        }
+        .table-hover>tbody>tr:hover{
+          background: #eee;
+        }
+        table td.text-l{
+          /*background: #ddd;*/
+        }
+        td{
+          border: 1px solid #ddd!important;
+        }
+      </style>
+    <!-- start: article_edit -->
+    <div id="article_edit"></div>
+    <!-- end: article_edit -->
+    </div>
+    <!-- 会员管理系统-->
+    <div class="Membership_ManagementSystem"></div>
+    <!-- 订单管理系统-->
+    <div class="Order_ManagementSystem"></div>
+    <!-- 歌曲上传系统-->
+    <div class="Songs_Uploaded">
+
+    </div>
+    <div class="loading"><img src="/static/MusicStyle/images/loading.gif" alt="">
+      <div style="position: fixed; left: 0px; top: 0px; z-index: 1060; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.2);" class="mask-in"></div>
+    </div>
+
+  </div>
+  <!-- end: content -->
+
+</div>
+<!-- 自定义js-->
+<script src="/static/MusicStyle/js/dist/id3-minimized.js"></script>
+<script src="/static/MusicStyle/js/article.js"></script>
+<!-- end: Javascript -->
+
+
+</body>
+</html>

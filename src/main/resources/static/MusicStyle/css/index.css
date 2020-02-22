@@ -1,0 +1,333 @@
+/*分页样式表*/
+.page_div {
+    margin-left: 20%;
+    font-size: 15px;
+    font-family: 'Microsoft YaHei','Lantinghei SC','Open Sans',Arial,'Hiragino Sans GB','STHeiti','WenQuanYi Micro Hei','SimSun',sans-serif;
+    color: #666666;
+    margin-right: 10px;
+    box-sizing: border-box;
+}
+/*
+ 分页数按钮样式
+ */
+.page_div a {
+    text-align: center;
+    margin: 0 4px;
+    cursor: pointer;
+    color: #666666;
+    font-size: 18px;
+    display: inline-block;
+}
+#firstPage,
+#lastPage {
+    color: #929292;
+}
+#prePage,
+#nextPage {
+    font-size: 40px;
+    color: #929292;
+    position: relative;
+    top:10px;
+}
+.page_div .current {
+    border-bottom:1px solid greenyellow;
+    color: #FFFFFF;
+}
+.totalPages {
+    float: right;
+    margin-right: 30%;
+    margin-top: 30px;
+}
+.totalPages span,
+.totalSize span {
+    color: #929292;
+    margin: 0 5px;
+}
+#jump{
+    width: 30px;
+}
+.layui-laypage-em{
+    display: none!important;
+}
+.layui-laypage a, .layui-laypage span{
+    background: none!important;
+    border: none;
+    display: block;
+    font-size: 16px!important;
+    padding: 0 6px!important;
+    margin: 0 6px!important;
+    cursor: pointer;
+}
+.layui-laypage a, .layui-laypage button, .layui-laypage input, .layui-laypage select, .layui-laypage span{
+    border: none;
+}
+
+    /*页面整体样式表*/
+*{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    text-decoration: none;
+    font-family: 微软雅黑;
+    outline-color: greenyellow;
+}
+body{
+    background: #262626;
+}
+.main{
+    width: 70%;
+    margin-left: 15%;
+    margin-top: 4%;
+}
+.main_one{
+    width: 100%;
+    height: 66px;
+}
+.main_one .logo{
+    float: left;
+    width: 180px;
+}
+.main_one .logo span{
+    color: #fff;
+    font-size: 40px;
+    font-weight: 600;
+}
+.main_one .search{
+    float: left;
+    margin-top: 10px;
+    margin-left: 50px;
+}
+.main_one .search input{
+    height: 30px;
+    width: 220px;
+    border: 1px solid #ccc;
+    background: none;
+    border-radius: 7px;
+    padding-left: 2em;
+    outline: none;
+    color: #fff;
+}
+.main_one .search .sousuo{
+    position: relative;
+    left: 25px;
+    color: #fff;
+}
+.main_one .right{
+    float: right;
+    margin-top: 12px;
+    margin-right: 20px;
+}
+.main_one .right button{
+    border: 1px solid #ccc;
+    background: none;
+    padding: 3px 16px;
+    color: #fff;
+    font-size: 14px;
+    border-radius: 7px;
+    cursor: pointer;
+    margin-right: 5px;
+    font-weight: 600;
+    outline: none;
+    z-index: 99;
+    position: relative;
+}
+.main_one .vip{
+    float: left;
+    margin-left: 14%;
+}
+.main_one .vip a{
+    color: #fff;
+    background: #46c5e0;
+    padding: 4px 18px;
+    border-radius: 7px;
+    position: relative;
+    top: 15px;
+}
+.main_one .vip a:hover{
+    box-shadow: 0px 0px 10px #999;
+}
+.main_one .vip a i{
+    margin-right: 5px;
+}
+
+.main_two{
+    height: 22px;
+}
+.main_two ul li{
+    float: left;
+    margin-right: 27px;
+    color: #8c8c8c;
+}
+.main_three{
+    height: 65px;
+}
+
+.touxiang{
+    display: none;
+    position: relative;
+    top: -10px;
+}
+.touxiang img{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+.touxiang span{
+    font-weight: 600;
+    color: #fff;
+    position: relative;
+    left: 10px;
+}
+
+
+#ReleasesAll{
+    height: 570px;
+    overflow-y: scroll;
+}
+::-webkit-scrollbar {/*滚动条整体样式*/
+    width: 10px;     /*高宽分别对应横竖滚动条的尺寸*/
+    /*height: 50px;*/
+}
+::-webkit-scrollbar-thumb {/*滚动条里面小方块*/
+    width: 10px;
+    /*height: 10px;*/
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.5);
+}
+::-webkit-scrollbar-track {/*滚动条里面轨道*/
+    /*-webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);*/
+}
+
+
+/*点击弹出的样式*/
+.loginym{
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: none;
+    z-index: 9;
+}
+.loginym .neirong{
+    width: 420px;
+    height: 380px;
+    background: #191919;
+    position: absolute;
+    right: 21.5%;
+    top: 117px;
+    border-radius: 10px;
+    text-align: center;
+}
+.loginym .neirong input{
+    width: 90%;
+    height: 36px;
+    margin-top: 14px;
+    border: 1px solid #fff;
+    border-radius: 7px;
+    padding-left: 1em;
+    outline: none;
+}
+.loginym .neirong .zhucebtn{
+    line-height: 4em;
+    height: 4em;
+    min-width: 250px;
+    padding: 15px 3em;
+    background: #94d500;
+    color: #fff;
+    border-radius: 4px;
+}
+.loginym .neirong .xian{
+    width: 96%;
+    height: 1px;
+    background: #666;
+    margin: 0 auto;
+}
+.loginym .neirong input[type="checkbox"]{
+    width: 16px;
+    margin-left: 14px;
+}
+.loginym .neirong .jizhu{
+    color: #a5a6a8;
+    font-size: 13px;
+    position: relative;
+    top:-13px;
+    left: 2px;
+}
+.loginym .neirong #Btn{
+    float: right;
+    width: 100px;
+    height: 30px;
+    border-radius: 7px;
+    border: none;
+    background: #39c1de;
+    color: #fff;
+    font-weight: 600;
+    margin-top: 5%;
+    margin-right: 4%;
+}
+.userxinxi{
+    width: 200px;
+    height: 234px;
+    background: #191919;
+    position: absolute;
+    left: 0;
+    z-index: 99;
+    padding: 0 4px;
+    overflow: hidden;
+    display: none;
+}
+.userxinxi ul li{
+    color: #fff;
+    border-bottom: 1px solid #999;
+    padding: 6px;
+}
+.userxinxi ul li p{
+    font-size: 12px;
+    text-align: center;
+    color: #999;
+}
+.touxiang{
+    padding: 5px 50px 0 5px;
+}
+.touxiang:hover{
+    background: #94d500;
+}
+.userxinxi ul li a{
+    color: #fff;
+    font-size: 13px;
+}
+.userxinxi ul li.on:hover{
+    background: #373737;
+}
+.touxiang:hover .userxinxi{
+    display: block;
+}
+
+
+/*音乐列表样式*/
+#ReleasesAll li{
+    font-size: 12px;
+    line-height: 60px;
+}
+#ReleasesAll li img{
+    height: 60px!important;
+    width: 60px!important;
+}
+#ReleasesAll li .horz-release-play-queue button{
+    background: none;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+#ReleasesAll li .horz-release-play-queue button i{
+    color: #ccc;
+    font-size: 24px;
+}
+#ReleasesAll li .horz-release-play-queue button i.cunAn{
+    font-size: 20px;
+}
+#ReleasesAll li .launch-menu .xia{
+    color: #fff;
+    font-size: 20px;
+}

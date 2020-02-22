@@ -1,0 +1,96 @@
+.layui-laypage span{
+
+    border-bottom: 2px solid #94d500;
+    opacity: 1;
+
+}
+.layui-laypage a{
+
+    margin: 0 3px;
+    padding: 2px;
+    color: #fff;
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: -.03em;
+
+}
+.header-container{
+    top: 0;
+    left: 0;
+}
+footer{
+    height: 200px;
+    margin-top: 0px;
+}
+/*音乐列表样式*/
+#pjax-target{
+    padding-top: 100px;
+    min-height: auto;
+    width: 80%;
+    margin: 0 auto;
+}
+#ReleasesAll li{
+    font-size: 12px;
+    line-height: 60px;
+}
+#ReleasesAll li img{
+    height: 60px!important;
+    width: 60px!important;
+}
+#ReleasesAll li .horz-release-play-queue button{
+    background: none;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+#ReleasesAll li .horz-release-play-queue button i{
+    color: #ccc;
+    font-size: 24px;
+}
+#ReleasesAll li .horz-release-play-queue button i.cunAn{
+    font-size: 20px;
+}
+#ReleasesAll li .launch-menu .xia{
+    color: #fff;
+    font-size: 20px;
+}
+
+#PageCodeTail .layui-laypage-curr em{
+    font-size: 20px;
+}
+#PageCodeTail .layui-laypage a{
+    font-size: 20px;
+    cursor: pointer;
+    margin: 0 10px;
+    padding: 0;
+}
+#PageCodeTail .icon.icon-scroll-left{
+    font-size: 14px;
+    position: relative;
+    top: -4px;
+}
+#PageCodeTail .icon.icon-scroll-right{
+    font-size: 14px;
+    position: relative;
+    top: -4px;
+}
+.pag-number{
+    padding: 0;
+}
+
+.header .search .head-search-parent{
+    width: 200px;
+}
+.pag-jump-to-input{
+    width: 30px;
+    height: 18px;
+}
+.pag-jump-to-container{
+    margin-right: 30px;
+}
+.account-drop-logged-in.abc{
+    display: none!important;
+}
+.account-drop-logged-in.aabb{
+    display: block!important;
+}

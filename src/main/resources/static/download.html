@@ -1,0 +1,389 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>国际音乐-我的下载</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="format-detection" content="telephone=no">
+	<link rel="stylesheet" href="/static/MusicStyle/font/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="/static/MusicStyle/css/demo.css">
+    <link rel="stylesheet" href="/static/MusicStyle/css/index.css">
+    <link rel="stylesheet" href="/static/MusicStyle/css/foot.css">
+    <script src="/static/MusicStyle/js/jquery.js"></script>
+    <script src="/static/MusicStyle/js/layui.js"></script>
+    <link rel="stylesheet" href="/static/MusicStyle/css/layui.css" media="all">
+
+</head>
+<body class="main logged-in" onload="PageCode();">
+<div>
+	<div class="main_one">
+		<div class="logo">
+			<span title="aaa">Beatport</span>
+		</div>
+		<div class="search">
+			<i class="fa fa-search sousuo"></i>
+			<input type="text" id="search" placeholder="SEARCH...">
+		</div>
+        <div class="vip">
+            <a href="vip.html"><i class="fa fa-address-card-o"></i>VIP Entrance</a>
+        </div>
+
+		<div class="right">
+            <div style="float: left;margin-right: 20px">
+                <a href="login.html">
+			    <button id="login_Btn">登录</button>
+                </a>
+                <div class="touxiang" style="">
+                    <a href="User-center.html">
+                        <img src="/static/MusicStyle/images/touxiang.jpg" alt="" width="100%" height="100%"><span id="username">12d</span>
+                    </a>
+                    <div class="userxinxi">
+                        <ul>
+                            <li>
+                                <h3>Quotes:</h3>
+                                <hr style="margin: 6px 0">
+                                <p>Promo: 2526 downloads</p>
+                                <p>Exclusive: 5673 downloads</p>
+                                <p>Expire date: 2018-08-03</p>
+                            </li>
+                            <li class="on"><a href="">Account Settings</a></li>
+                            <li class="on"><a href="">My Downloads</a></li>
+                            <li class="on"><a href="">My Favorite</a></li>
+                            <li class="on"><a href="">Log Out</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+			<button id="register_Btn" onclick="window.location='enroll.html'">注册</button>
+		</div>
+	</div>
+	<div class="loginym">
+		<div class="neirong">
+            <h2 style="color: #fff;">Welcome to Beatport</h2>
+            <p style="font-size: 13px;color: #a5a6a8;margin: 10px 0;">Beatport is the world's largest electronic music store for DJs</p>
+            <p><a href="#" class="zhucebtn">Create an Account</a></p>
+            <p style="margin-top: 6px"><span style="color: #8c8c8c;background: #191919;font-size: 14px;position: relative;top: 7px;padding: 0 10px;">Already have an account? Sign in</span><div class="xian"></div></p>
+			<input type="text" value="" id="name" placeholder="用户名">
+            <br>
+			<input type="password" value="" id="pwd" placeholder="密码">
+            <br>
+            <p align="left"><input type="checkbox" id="jizhu"><label for="jizhu" class="jizhu">Remember me</label> <button id="Btn" onclick="login();">LOG IN</button></p>
+            <p align="right" style="margin-top: 20px;font-size: 13px;margin-right: 4%"><a href="#" style="color: #949494;">Forgot your username or password?</a></p>
+		</div>
+	</div>
+	<div class="main_two">
+		<ul>
+			<li><b>TYPE</b></li>
+			<li><b>RELEASE DATE</b></li>
+			<li><b>GENRE</b></li>
+			<li><b>SUB-GENRE</b></li>
+			<li><b>ARTISTS</b></li>
+			<li><b>LABELS</b></li>
+			<li>RESET ALL</li>
+			<li style="float: right;display: none;">
+				SORT BY:
+				<select>
+					<option>Newest to Oldest</option>
+					<option>Oldest to Newest</option>
+					<option>Title A-Z</option>
+					<option>Title Z-A</option>
+					<option>Label A-Z</option>
+					<option>Label Z-A</option>
+				</select>
+			</li>
+		</ul>
+	</div>
+
+	<!--<div class="main_three">-->
+		<!--<div id="page" class="page_div"><a id="prePage"></a><a>1</a><a class="current">2</a><a>3</a><a>4</a><a>5</a>. . .<a>10</a><a id="nextPage"></a></div>-->
+        <!--<span style="float: right;"></span>-->
+	<!--</div>-->
+
+    <div id="PageCode"></div>
+
+    <style>
+        #PageCode{
+            margin-left: 10%;
+        }
+       #PageCode #layui-laypage-1 a{
+            background: none;
+           color: #fff;
+           border: none;
+        }
+       .layui-laypage a, .layui-laypage span{
+
+       }
+    </style>
+
+    <div id="pjax-target">
+            <div id="pjax-inner-wrapper" class="">
+
+                <!-- Page Content Container -->
+                <section class="">
+
+                    <main class="interior">
+                        <div class="full-col">
+                            <div class="bucket horz-releases filter-page-releases">
+
+                                <div class="bucket-horz-release-header">
+                                    <p class="buk-horz-release-title bucket-horz-header-col ">
+                                        <trans oldtip="Title" newtip="标题">Title</trans>
+                                    </p>
+                                    <p class="buk-horz-release-artists bucket-horz-header-col">
+                                        <trans oldtip="Artists" newtip="艺术家">Artists</trans>
+                                    </p>
+                                    <p class="buk-horz-release-labels bucket-horz-header-col">
+                                        <trans oldtip="Labels" newtip="标签">Labels</trans>
+                                    </p>
+                                    <p class="buk-horz-release-released bucket-horz-header-col">
+                                        <trans oldtip="Released" newtip="释放">Released</trans>
+                                    </p>
+                                </div>
+
+                                <ul class="bucket-items ec-bucket filter-page-releases-list" id="ReleasesAll">
+
+                                </ul>
+
+                                <div class="pagination-container pagination-bottom-container">
+                                    <div class="pag-num-list-container">
+                                        <a href="/releases/all?page=15257" class="pag-prev" rel="prev"><span
+                                                class="icon icon-scroll-left"></span></a>
+
+                                        <div class="pag-numbers">
+                                            <a href="/releases/all?page=1" class="pag-number">1</a>
+
+                                            <span class="pag-number-ellipsis">...</span>
+
+                                            <a href="/releases/all?page=15257" class="pag-number">15257</a>
+
+                                            <strong class="pag-number pag-number-current">15258</strong>
+
+                                            <a href="/releases/all?page=15259" class="pag-number">15259</a>
+
+                                            <span class="pag-number-ellipsis">...</span>
+
+                                            <a href="/releases/all?page=15316" class="pag-number">15316</a>
+                                        </div>
+
+                                        <a href="/releases/all?page=15259" class="pag-next" rel="next"><span
+                                                class="icon icon-scroll-right"></span></a>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </main>
+
+                </section>
+
+            </div>
+        </div>
+
+
+</div>
+
+<script src="/static/MusicStyle/js/wavesurfer.min.js"></script>
+<script src="/static/MusicStyle/js/app.js"></script>
+
+
+<div class="footer">
+    <img src="/static/MusicStyle/images/touxiang.jpg" alt="" class="musicTx">
+    <div class="musicXinxi">
+        <a href="#" style="">
+            <span class="primary-title">Moonlight</span>
+            <span class="remixed">Original mix</span>
+        </a>
+        <br>
+        <a href="#" style="">Cherish,</a>
+        <a href="#" style="">MarkEG</a>
+    </div>
+    
+    <div class="iframe" style="position: relative">
+        <div id="">
+            <div class="">
+                <div id="waveform">
+                    <!-- Here be waveform -->
+                </div>
+
+                <div class="MusicBtn">
+
+                    <button class="pink">
+                        <span>
+                            <span class="money">$99.96</span>
+                            <i class="fa fa-angle-down djxia"></i>
+                        </span>
+                    </button>
+
+                    <button class="music" id="music">
+                        <span>
+                            <i class="fa fa-bell-o"></i>
+                        </span>
+
+                    </button>
+
+                    <button class="hou">
+                        <span>
+                            <i class="fa fa-step-backward"></i>
+                        </span>
+                    </button>
+
+                    <button class="" id="playPause">
+                            <span id="play">
+                                <i class="fa fa-play"></i>
+                            </span>
+
+                            <span id="pause" style="display: none">
+                                <i class="fa fa-pause"></i>
+                            </span>
+                    </button>
+
+                    <button class="qian">
+                        <span>
+                            <i class="fa fa-step-forward"></i>
+                        </span>
+                    </button>
+
+                    <button class="tingguo">
+                        <span>
+                            <i class="fa fa-th-list"></i>
+                        </span>
+                    </button>
+
+                </div>
+
+
+            </div>
+
+            <div class="" id="playlist">
+                <a href="" class="list-group-item">
+                    <i class="glyphicon glyphicon-play"></i>
+                    Wake
+                    <span class="badge">4:35</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="range">
+        <input type="range" orient="vertical" class="inputrange" value="80" id="inputrange">
+    </div>
+</div>
+<script src="/static/MusicStyle/js/index.js"></script>
+
+<script>
+
+    function login(){
+        var name = $("#name").val();
+        var pwd = $("#pwd").val();
+        $.ajax({
+            data : {
+                "UserName" : name,//传入页面数据
+                "Password" : pwd
+            },
+            type : "POST",
+            contentType : "application/x-www-form-urlencoded;charset=utf-8",
+            scriptCharset : 'utf-8',
+            url : "/UserInfo/Userlogin",
+            success : function(JSONdata) {
+
+                //解析JSON数据
+                $.each(JSON.parse(JSONdata), function (i, Info) {
+
+//                    alert(Info.Error==null);
+                    if(Info.Error==null){
+                        $(".touxiang img").attr("src",Info.user_Image);
+                        $("#username").html(Info.user_Name);
+                        $(".touxiang").css("display","block");
+                        $("#login_Btn").css("display","none");
+                    }
+                });
+            },
+            error : function(jqXHR, textStatus, errorThrown) {
+                /*弹出jqXHR对象的信息*/
+                alert(jqXHR.responseText);
+                alert(jqXHR.status);
+                alert(jqXHR.readyState);
+                alert(jqXHR.statusText);
+                /*弹出其他两个参数的信息*/
+                alert(textStatus);
+                alert(errorThrown);
+            }
+        });
+    }
+</script>
+
+<script>
+    function Adata(abc){
+        $.ajax({
+            data : {
+                "Page" : abc//传入页面数据
+            },
+            type : "POST",
+            contentType : "application/x-www-form-urlencoded;charset=utf-8",
+            scriptCharset : 'utf-8',
+            url : "/Paging_Action/Paging",
+            success : function(JSONdata) {
+                //解析JSON数据
+
+                $.each(JSON.parse(JSONdata), function (i, SongInfo) {
+
+                    $("#ReleasesAll").append("<li class=\"bucket-item ec-item horz-release\"><div class=\"horz-release-artwork-parent\"><a href=\"#\"><img class=\"horz-release-artwork\" src=\""+SongInfo.song_Imge+"\"></a></div><div class=\"horz-release-meta-parent\"><div class=\"horz-release-meta\"><p class=\"buk-horz-release-title\"><a href=\"#\"><trans>"+SongInfo.song_Name+"</trans></a></p><p class=\"buk-horz-release-artists\"><a href=\"#\"><trans>"+SongInfo.song_Artists+"</trans></a></p><p class=\"buk-horz-release-labels\"><a href=\"#\"><trans>"+SongInfo.song_Label+"</trans></a></p><p class=\"buk-horz-release-released\">"+SongInfo.song_ReleasedTime+"</p></div><div class=\"horz-release-actions-parent\"><div class=\"horz-release-actions\"><div class=\"horz-release-play-queue\"><button class=\"playable-play\" data-release=\"2284991\" data-track=\"10563140\"><i class='fa fa-caret-right'></i></button><button class=\"playable-queue\" data-release=\"2284991\" data-track=\"10563140\"><i class='fa fa-server cunAn'></i></button></div><div class=\"buy-button horz-release-buy-button\"><button class=\"add-to-default\">$5.96</button><button class=\"launch-menu\"><i class='fa fa-angle-down xia'></i></div></div><a href=\"#\" class=\"icon icon-ellipsis horz-release-ellipsis mobile-action\"></a></div></div></li>");
+
+                });
+            }
+        });
+    }
+
+    function PageCode() {
+        //获取总的数量
+        $.ajax({
+            type : "POST",
+            contentType : "application/x-www-form-urlencoded;charset=utf-8",
+            scriptCharset : 'utf-8',
+            url : "/Paging_Action/Songs_TotalNumber",
+            success : function(Pagedata) {
+                $.each(JSON.parse(Pagedata), function (i, PageInfo) {
+                    layui.use(['laypage', 'layer'], function(){
+                        var laypage = layui.laypage
+                                ,layer = layui.layer;
+
+                        //调用分页
+//                        laypage.render({
+//                            elem: 'PageCode'
+//                            ,count: PageInfo.Songs_TotalNumber//数据总数
+//                            ,jump: function(obj){
+//                                $("#ReleasesAll").html("");
+//                                Adata(obj.curr);
+//                            }
+//                        });
+                        laypage.render({
+                            elem: 'PageCode'
+                            ,theme: '#6e6e6e'
+                            ,count:  PageInfo.Songs_TotalNumber
+                            ,prev: '<i class="fa fa-car"></i>'
+                            ,next: '<i class="fa fa-car"></i>'
+                            ,jump: function(obj){
+                                $("#ReleasesAll").html("");
+                                Adata(obj.curr);
+                            }
+                        });
+
+
+                    });
+                });
+            }
+        });
+    }
+</script>
+
+</body>
+</html>

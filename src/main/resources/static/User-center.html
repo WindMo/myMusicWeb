@@ -1,0 +1,150 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>国际音乐-用户中心</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="format-detection" content="telephone=no">
+	<link rel="stylesheet" href="/static/MusicStyle/font/css/font-awesome.min.css">
+    <script src="/static/MusicStyle/js/jquery.js"></script>
+    <link rel="stylesheet" href="/static/MusicStyle/css/user.css">
+    
+</head>
+    <body>
+        <div class="user_main_one">
+            <h1>ACCOUNT SETTINGS</h1>
+            <div class="userLi">
+                <ul>
+                    <li class="active">Resource download permissions</li>
+                    <li>Account Settings</li>
+                    <li onclick="window.location.href='download.html'">My download</li>
+                    <li onclick="window.location.href='collection.html'">My collection</li>
+                    <li>Exit the website</li>
+                </ul>
+            </div>
+
+            <div class="userTable">
+                <!--内容1-->
+                <div class="tableMain myMain">
+                    <div class="user_tx">
+                        <img src="images/touxiang.jpg" alt="" class="user_img">
+                        <span class="user_name">用户123</span>
+                    </div>
+                    <p class="sj">Membership opening time：<span class="start">2017-11-11</span></p>
+                    <p class="sj">Membership end time：<span class="end">2019-10-01</span></p>
+                    <p class="nosj">Sorry,Not to open a member for the time being&nbsp;&nbsp;<a href="#" style="color: #94d500;">Go open</a></p>
+
+                    <ul class="shuoming">
+                        <li><h2>Monthly knot</h2></li>
+                        <li><h3>Downloadable</h3></li>
+                        <li><span>Promo class resources 1000 songs</span></li>
+                        <li><span>Exclusive class resources 2000 songs</span></li>
+                        <li><span>Exclusive1 class resources 3000 songs</span></li>
+                    </ul>
+                    <ul class="shuoming">
+                        <li><h2>Quarter</h2></li>
+                        <li><h3>Downloadable</h3></li>
+                        <li><span>Promo class resources 1000 songs</span></li>
+                        <li><span>Exclusive class resources 2000 songs</span></li>
+                        <li><span>Exclusive1 class resources 3000 songs</span></li>
+                    </ul>
+                    <ul class="shuoming">
+                        <li><h2>Annual fee</h2></li>
+                        <li><h3>Downloadable</h3></li>
+                        <li><span>Promo class resources 1000 songs</span></li>
+                        <li><span>Exclusive class resources 2000 songs</span></li>
+                        <li><span>Exclusive1 class resources 3000 songs</span></li>
+                    </ul>
+                </div>
+                <!--end内容1-->
+
+                <!--内容2-->
+                <div class="tableMain">
+                    <div class="two_tx">
+                        <p align="center">
+                            <form action="" enctype="multipart/form-data">
+                                <img src="/static/MusicStyle/images/touxiang.jpg" id="show"><br>
+                                <input id="file" class="inputfile" onchange="changepic(this)" type="file" accept="image/png, image/jpeg, image/gif, image/jpg">
+                                <label for="file" class='txBtn'>Choose a file</label>
+                            </form>
+                        </p>
+                    </div>
+                    <ul class="newpwd">
+                        <li><label>帐号：</label><span>4G9As6f27</span></li>
+                        <li><label for="yuanpwd">原密码：</label><input type="text" id="yuanpwd" placeholder="请输入原密码"></li>
+                        <li><label for="newpwd">新密码：</label><input type="text" id="newpwd" placeholder="请输入新密码"></li>
+                        <li><label for="newpwd1">确认新密码：</label><input type="text" id="newpwd1" placeholder="请确认新密码"></li>
+                        <li>
+                            <label>修改性别：</label>
+                            <label for="nan" class="nan">男</label>
+                            <input type="radio" value="男" id="nan" name="xingbie" class="xingbie nan2" checked>
+                            <label for="nv" class="nv">女</label>
+                            <input type="radio" value="女" id="nv" name="xingbie" class="xingbie nv1">
+                        </li>
+
+                    </ul>
+                    <p><button class="xiugaisubmit">Submit</button></p>
+                </div>
+                <!--end内容2-->
+
+
+            </div>
+        </div>
+
+    </body>
+<script>
+    $(".xiugaisubmit").click(function () {
+        alert($("#show").attr("src"))
+    })
+</script>
+<script>
+    function changepic(obj) {
+        //console.log(obj.files[0]);//这里可以获取上传文件的name
+        var newsrc=getObjectURL(obj.files[0]);
+        document.getElementById('show').src=newsrc;
+    }
+    //建立一個可存取到該file的url
+    function getObjectURL(file) {
+        var url = null ;
+        // 下面函数执行的效果是一样的，只是需要针对不同的浏览器执行不同的 js 函数而已
+        if (window.createObjectURL!=undefined) { // basic
+            url = window.createObjectURL(file) ;
+        } else if (window.URL!=undefined) { // mozilla(firefox)
+            url = window.URL.createObjectURL(file) ;
+        } else if (window.webkitURL!=undefined) { // webkit or chrome
+            url = window.webkitURL.createObjectURL(file) ;
+        }
+        return url ;
+    }
+</script>
+
+<script>
+    var timeId;
+    $(document).ready(function(){
+        $(".userLi li").each(function(index){
+            //index是li数组的的索引值
+            $(this).click(function(){
+                var liNode = $(this);
+                //延迟是为了减少服务器压力，防止鼠标快速滑动
+                timeId = setTimeout(function(){
+                    //将原来显示的div隐藏掉
+                    $(".tableMain").removeClass("myMain");
+                    //将原来的li的myLi去掉
+                    $(".userLi li").removeClass("active");
+                    //显示当前鼠标li的对应的div
+                    $(".tableMain").eq(index).addClass("myMain");
+                    //增加当前li的myLi
+                    liNode.addClass("active");
+                },10);
+            }).mouseout(function(){
+                clearTimeout(active);
+            });
+        });
+    });
+</script>
+
+</html>

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mo.music.sqlConnect.mapping.OrderMapping">
+	
+	<!-- 添加订单信息 -->
+	<insert id="addOrder" parameterType="java.util.List" flushCache="true">
+		insert into
+		membership_order (Order_Number,Quantity_of_goods,Order_Name,Commodity_Description,Alipay_Order_Id,Order_Amount,Order_Status,User_ID,PriceID,Actual_payment)
+		values
+		<foreach collection ="list" item="reddemCode" index= "index" separator =",">
+		(
+		#{reddemCode.Order_Number},
+		#{reddemCode.Quantity_of_goods},
+		#{reddemCode.Order_Name},
+		#{reddemCode.Commodity_Description},
+		#{reddemCode.Alipay_Order_Id},
+		#{reddemCode.Order_Amount},
+		#{reddemCode.Order_Status},
+		#{reddemCode.User_ID},
+		#{reddemCode.PriceID},
+		#{reddemCode.Actual_payment}
+		)
+		</foreach >
+	</insert>
+	
+	<!-- 修改订单信息-->
+	<update id="modifyOrderInfo" parameterType="com.mo.music.entity.MembershipOrder" flushCache="true">
+		update membership_order 
+		<set>
+			<if test="null != Quantity_of_goods and '' != Quantity_of_goods">
+				Quantity_of_goods=#{Quantity_of_goods},
+			</if>
+			<if test="null != Order_Name and '' != Order_Name">
+				Order_Name=#{Order_Name},
+			</if>
+			<if test="null != Commodity_Description and '' != Commodity_Description">
+				Commodity_Description=#{Commodity_Description},
+			</if>
+			<if test="null != Alipay_Order_Id and '' != Alipay_Order_Id">
+				Alipay_Order_Id=#{Alipay_Order_Id},
+			</if>
+			<if test="null != Order_Amount and '' != Order_Amount">
+				Order_Amount=#{Order_Amount},
+			</if>
+			<if test="null != Order_Status and '' != Order_Status">
+				Order_Status=#{Order_Status},
+			</if>
+			<if test="null != Actual_payment and '' != Actual_payment">
+				Actual_payment=#{Actual_payment},
+			</if>
+		</set>
+		where Order_Number=#{Order_Number}
+	</update>
+	
+	<!-- 根据订单编号查询用户Info-->
+	<select id="accordingToOrderNumberInquire" resultType="com.mo.music.entity.MembershipOrder">
+		select Order_ID,Order_Number,Quantity_of_goods,Order_Name,Commodity_Description,Alipay_Order_Id,Order_Amount,Order_Status,User_ID,PriceID,Actual_payment from membership_order where Order_Number=#{_parameter}
+	</select>
+	
+	<!-- 显示所有的会员订单信息 -->
+	<select id="viewAllMembershipOrderInfo" resultType="com.mo.music.entity.MembershipOrder">
+		select Order_ID,Order_Number,Order_Name,Commodity_Description,Alipay_Order_Id,Order_Amount,Order_Status,User_ID,Actual_payment from membership_order ${_parameter}
+	</select>
+	
+	<!-- 显示订单数量 -->
+	<select id="orderNumber" resultType="java.math.BigDecimal">
+		select count(*) from membership_order ${_parameter}
+	</select>
+	
+	<!-- 删除一条订单信息 -->
+	<delete id="memberInfoDelete" parameterType="java.lang.String">
+        DELETE FROM membership_order WHERE Order_ID = #{_parameter}
+	</delete>
+	
+</mapper>

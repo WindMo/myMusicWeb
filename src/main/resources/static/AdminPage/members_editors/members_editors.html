@@ -1,0 +1,29 @@
+﻿<meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="/static/MusicStyle/css/amazeui.css"/>
+<div class="am-form">
+    <fieldset>
+        <br/>
+        <legend>会员编辑页</legend>
+
+        <div class="am-form-group">
+            <label for="MemberOpening_Time">起始时间</label>
+            <input type="text" class="" id="MemberOpening_Time" placeholder="会员开通时间精确到秒 yyyy-MM-dd hh:mm:ss"
+                   value="${Opening_Time}">
+        </div>
+
+        <div class="am-form-group">
+            <label for="MemberExpiry_Time">结束时间</label>
+            <input type="text" class="" id="MemberExpiry_Time" placeholder="会员结束时间精确到秒 yyyy-MM-dd hh:mm:ss"
+                   value="${Expiry_Time}">
+        </div>
+
+        <div class="am-form-group">
+            <label for="Member_Type">当前状态</label>
+            <input type="text" class="" id="Member_Type" placeholder="当前状态" value="${Member_Type}">
+        </div>
+
+        <p>
+            <button onclick="Modifying_Member_Info('${Member_ID}')" class="am-btn am-btn-default">提交修改</button>
+        </p>
+    </fieldset>
+</div>

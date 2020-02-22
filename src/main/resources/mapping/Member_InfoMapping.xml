@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mo.music.dao.mapper.MemberInfoCRUD">
+	
+	<!-- 通过用户信息查询会员信息 -->
+	<select id="accordingToUserID_Inquire" resultType="com.mo.music.entity.MemberInfo">
+		select Member_ID,User_ID,Opening_Time,Expiry_Time,Member_Type,Member_DownloadID from member_info where User_ID=#{_parameter}
+	</select>
+	
+	<!-- 查询会员的总数 -->
+	<select id="memberNumberInquire" resultType="java.math.BigDecimal">
+		select count(*) from member_info where ${_parameter}
+	</select>
+
+	<!-- 查询所有会员信息 -->
+	<select id="viewAllMemberInfo" resultType="com.mo.music.entity.MemberInfo">
+		select Member_ID,User_ID,Opening_Time,Expiry_Time,Member_Type,Member_DownloadID from member_info ${_parameter}
+	</select>
+	
+	<!-- 添加会员信息 -->
+	<insert id="addMemberInfo" parameterType="com.mo.music.entity.MemberInfo" flushCache="true">
+		insert into
+		member_info (Opening_Time,Expiry_Time,Member_Type,User_ID)
+		values
+		(
+		#{Opening_Time},
+		#{Expiry_Time},
+		#{Member_Type},
+		#{User_ID}
+		)
+	</insert>
+	
+	<!-- 删除一个会员 -->
+	<delete id="memberInfoDelete" parameterType="com.mo.music.entity.MemberInfo">
+    DELETE FROM member_info WHERE Member_ID = #{Member_ID}
+	</delete>
+	<!-- 删除历史下载信息 -->
+	<delete id="historicalDownloadDelete" parameterType="com.mo.music.entity.MemberInfo">
+	DELETE FROM historical_download WHERE User_ID = (select User_ID from member_info where Member_ID = #{Member_ID})
+	</delete>
+	
+	
+	<!-- 修改会员信息-->
+	<update id="memberInfoUpdate" parameterType="com.mo.music.entity.MemberInfo" flushCache="true">
+		update member_info 
+		<set>
+			<if test="null != User_ID and '' != User_ID">
+				User_ID=#{User_ID},
+			</if>
+			<if test="null != Opening_Time and '' != Opening_Time">
+				Opening_Time=#{Opening_Time},
+			</if>
+			<if test="null != Expiry_Time and '' != Expiry_Time">
+				Expiry_Time=#{Expiry_Time},
+			</if>
+			<if test="null != Member_Type and '' != Member_Type">
+				Member_Type=#{Member_Type},
+			</if>
+		</set>
+		where Member_ID=#{Member_ID}
+	</update>
+	
+	
+</mapper>

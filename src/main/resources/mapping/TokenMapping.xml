@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mo.music.dao.mapper.TokenCRUD">
+	
+	<!-- 添加一个Token -->
+	<insert id="Token_add" parameterType="com.mo.music.entity.Token" flushCache="true">
+		insert into
+		Token(User_ID,Token_Value,TokenExpireIn_Time)
+		values
+		(
+		#{User_ID},
+		#{Token_Value},
+		#{TokenExpireIn_Time}
+		)
+	</insert>
+	
+	<!-- 删除当前ToKen -->
+	<delete id="Delete_CurrentToKen" parameterType="java.lang.String">  
+        DELETE FROM Token WHERE Token_ID = #{_parameter}
+	</delete>
+	
+	<!-- 修改当前 Token -->
+	<update id="Modify_CurrentToken" parameterType="com.mo.music.entity.Token" flushCache="true">
+		update Token 
+		<set>
+			<if test="null != User_ID and '' != User_ID">
+				User_ID=#{User_ID},
+			</if>
+			<if test="null != Token_Value and '' != Token_Value">
+				Token_Value=#{Token_Value},
+			</if>
+			<if test="null != TokenExpireIn_Time and '' != TokenExpireIn_Time">
+				TokenExpireIn_Time=#{TokenExpireIn_Time},
+			</if> 
+		</set>
+		where Token_ID=#{Token_ID}
+	</update>
+	
+	<!-- 根据用户ID 查询当前 Token-->
+	<select id="Find_CurrentToken" resultType="com.mo.music.entity.Token">
+		select Token_ID,User_ID,Token_Value,TokenExpireIn_Time from Token where User_ID=#{_parameter}
+	</select>
+	
+</mapper>

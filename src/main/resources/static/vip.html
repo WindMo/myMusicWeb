@@ -1,0 +1,193 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>国际音乐-vip充值中心</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="format-detection" content="telephone=no">
+	<link rel="stylesheet" href="/static/MusicStyle/font/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/static/MusicStyle/css/index.css">
+    <script src="/static/MusicStyle/js/jquery.js"></script>
+    <link rel="stylesheet" href="/static/MusicStyle/css/vip.css">
+
+</head>
+<body class="main">
+<div class="main_one">
+    <div class="logo">
+        <span title="">Beatport</span>
+    </div>
+    <div class="search">
+        <i class="fa fa-search sousuo"></i>
+        <input type="text" id="search" placeholder="SEARCH...">
+    </div>
+
+    <div class="right">
+        <div style="float: left;margin-right: 20px">
+            <a href="login.html">
+                <button id="login_Btn">登录</button>
+            </a>
+            <div class="touxiang" style="">
+                <a href="User-center.html">
+                    <img src="/static/MusicStyle/images/touxiang.jpg" alt="" width="100%" height="100%"><span id="username">12d</span>
+                </a>
+                <div class="userxinxi">
+                    <ul>
+                        <li>
+                            <h3>Quotes:</h3>
+                            <hr style="margin: 6px 0">
+                            <p>Promo: 2526 downloads</p>
+                            <p>Exclusive: 5673 downloads</p>
+                            <p>Expire date: 2018-08-03</p>
+                        </li>
+                        <li class="on"><a href="">Account Settings</a></li>
+                        <li class="on"><a href="">My Downloads</a></li>
+                        <li class="on"><a href="">My Favorite</a></li>
+                        <li class="on"><a href="">Log Out</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <button id="register_Btn" onclick="window.location='/enroll.html'">注册</button>
+    </div>
+</div>
+<div class="loginym">
+    <div class="neirong">
+        <h2 style="color: #fff;">Welcome to Beatport</h2>
+        <p style="font-size: 13px;color: #a5a6a8;margin: 10px 0;">Beatport is the world's largest electronic music store for DJs</p>
+        <p><a href="#" class="zhucebtn">Create an Account</a></p>
+        <p style="margin-top: 6px"><span style="color: #8c8c8c;background: #191919;font-size: 14px;position: relative;top: 7px;padding: 0 10px;">Already have an account? Sign in</span><div class="xian"></div></p>
+        <input type="text" value="" id="user_name" placeholder="用户名">
+        <p class="Verifying_Username" style="color:red"></p>
+        <br>
+        <input type="password" value="" id="usre_pwd" placeholder="密码">
+        <p class="Verifying_Password" style="color:red"></p>
+        <br>
+        <p align="left"><input type="checkbox" id="jizhu"><label for="jizhu" class="jizhu">Remember me</label> <button id="Btn" onclick="login();">LOG IN</button></p>
+        <p align="right" style="margin-top: 20px;font-size: 13px;margin-right: 4%"><a href="#" style="color: #949494;">Forgot your username or password?</a></p>
+    </div>
+</div>
+
+<div class="chongzhi">
+
+
+    <ul>${Membership_PriceInfo}</ul>
+
+
+</div>
+
+
+<script src="/static/MusicStyle/js/index.js"></script>
+<script>
+    function login(){
+        //验证用户名
+        if($("#user_name").val().length>4){
+            $(".Verifying_Username").html("");
+            //判断用户名是否存在
+            $.ajax({
+                data : {
+                    "UserName" : $("#user_name").val()
+                },
+                type : "POST",
+                contentType : "application/x-www-form-urlencoded;charset=utf-8",
+                scriptCharset : 'utf-8',
+                url : "/UserInfo/UserName_IsEmpty",
+                success : function(JSONdata) {
+                    //解析JSON数据
+                    $.each(JSON.parse(JSONdata), function (i, Info) {
+                        if(Info.IsEmpty=="true"){
+                            $(".Verifying_Username").html("");
+                            //判断密码格式
+                            if($("#usre_pwd").val().length<9){
+                                $(".Verifying_Password").html("您的密码必须至少包含9个字符");
+                            }else{
+                                $.ajax({
+                                    data : {
+                                        "UserName" : $("#user_name").val(),//传入页面数据
+                                        "Password" : $("#usre_pwd").val()
+                                    },
+                                    type : "POST",
+                                    contentType : "application/x-www-form-urlencoded;charset=utf-8",
+                                    scriptCharset : 'utf-8',
+                                    url : "/UserInfo/Userlogin",
+                                    success : function(JSONdata) {
+
+                                        //解析JSON数据
+                                        $.each(JSON.parse(JSONdata), function (i, Infodata) {
+
+                                            if(Infodata.Error==null){
+                                                //保存用户登陆状态信息
+                                                sessionStorage.setItem('User_Name', Infodata.user_Name);
+                                                sessionStorage.setItem('User_ID', Infodata.user_ID);
+                                                sessionStorage.setItem('User_Image', Infodata.user_Image);
+                                                //跳转主页面
+                                                $(".touxiang img").attr("src",Info.user_Image);
+                                                $("#username").html(Info.user_Name);
+                                                $(".touxiang").css("display","block");
+                                                $("#login_Btn").css("display","none");
+                                                $("#register_Btn").css("display","none");
+                                            }else{
+                                                $(".Verifying_login").html(Infodata.Error);
+                                            }
+                                        });
+                                    }
+                                });
+                            }
+                        }else{
+                            $(".Verifying_Username").html(Info.State);
+                        }
+                    });
+                }
+            });
+        }else{
+            $(".Verifying_Username").html("用户名必须至少有5个字符长。");
+        }
+    }
+
+    //购买会员
+    function Buy_Member(MembershipPriceID){
+        //判断用户是否登陆
+        if(sessionStorage.getItem("User_ID")==""||sessionStorage.getItem("User_ID")==null){
+
+            alert("请先登陆");
+
+        }else{
+
+        	//调用后台支付
+            $.ajax({
+                data : {
+                    "MembershipPriceID" : MembershipPriceID,
+                    "User_ID" : sessionStorage.getItem("User_ID")
+                },
+                type : "POST",
+                contentType : "application/x-www-form-urlencoded;charset=utf-8",
+                scriptCharset : 'utf-8',
+                url : "/OpenMember/Member_payment",
+                success : function(JSONdata) {
+
+                    //判断用户ID是否成功传入后台
+                    if(JSON.parse(JSONdata)=="The user is not logged in"){
+                        alert("请先登陆");
+                    }else{
+                        //判断资费ID是否存在
+                        if(JSON.parse(JSONdata)=="Membership price ID does not exist"){
+                            alert("订单错误,请刷新重试");
+                        }else if(JSON.parse(JSONdata)=="Failure to add order information"){
+                        	alert("Failure to add order information");
+                        }else {
+                            $(".main_one").html(JSON.parse(JSONdata));
+                        }
+                    }
+
+
+                }
+            });
+
+        }
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+﻿<link rel="stylesheet" type="text/css" href="/static/MusicStyle/css/amazeui.css"/>
+<div class="am-form">
+    <fieldset>
+        <br/>
+        <legend>订单编辑页</legend>
+
+        <div class="am-form-group">
+            <label for="Order_Name">订单名称</label>
+            <input type="text" class="" id="Order_Name" placeholder="订单名称"
+                   value="${Order_Name}">
+        </div>
+
+        <div class="am-form-group">
+            <label for="Commodity_Description">订单详情</label>
+            <input type="text" class="" id="Commodity_Description" placeholder="商品详情"
+                   value="${Commodity_Description}">
+        </div>
+
+        <div class="am-form-group">
+            <label for="Order_Status">订单状态</label>
+            <input type="text" class="" id="Order_Status" placeholder="订单状态" value="${Order_Status}">
+        </div>
+
+        <p>
+            <button onclick="Modifying_OrderInfo('${Order_Number}')" class="am-btn am-btn-default">提交修改</button>
+        </p>
+    </fieldset>
+</div>

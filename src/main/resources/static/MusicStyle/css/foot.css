@@ -1,0 +1,118 @@
+/*底部样式表*/
+
+.footer{
+    width: 100%;
+    height: 65px;
+    background: #141414;
+    position: fixed;
+    bottom: 0;
+    left:0;
+}
+.footer .musicTx{
+    height: 100%;
+    width: 65px;
+    float: left;
+}
+.musicXinxi{
+    float: left;
+    margin-left: 10px;
+    margin-top: 10px;
+}
+.musicXinxi a{
+    color: #fff;
+    font-size: 16px;
+}
+.musicXinxi a:hover{
+    color: #f2f2f2;
+}
+.musicXinxi .remixed{
+    font-size: 15px;
+}
+.iframe{
+    width: 78%;
+    float: right;
+    margin-top: 5px;
+}
+iframe{
+    width: 100%;
+    background: none;
+}
+
+.inputrange{
+    -webkit-appearance: slider-vertical;
+    width: 8px;
+    height: 150px;
+    position: absolute;
+    right: 9.1%;
+    top: -150px;
+    display: none;
+}
+
+/*控制栏*/
+.MusicBtn{
+    position: absolute;
+    right: 0;
+    top: 18px;
+}
+.MusicBtn button{
+    margin:0 10px;
+    border: none;
+    background: none;
+    outline: none;
+}
+.MusicBtn button i{
+    color: #fff;
+    font-size: 20px;
+}
+.MusicBtn button span{
+    color: #fff;
+}
+.MusicBtn button:hover i{
+    text-shadow: 0px 0px 24px #fff;
+    transition: opacity .2s ease-in-out;
+}
+.MusicBtn .pink{
+    position: relative;
+    background: #FF499A;
+    border-radius: 4px;
+    padding: 1px 2px;
+}
+.MusicBtn .money{
+    background: #FF499A;
+    padding: 0 2px;
+    position: relative;
+    top: -1px;
+}
+.MusicBtn .pink .djxia{
+    background: #D44183;
+    padding: 0 4px;
+}
+
+
+#playlist{
+    position: absolute;
+    left: 0;
+    top: 30px;
+    z-index: 99;
+    font-size: 15px;
+    background: rgba(55,55,55,0.5);
+    width: 250px;
+    text-align: center;
+}
+#playlist a{
+    line-height: 30px;
+    color: #ccc;
+    font-weight: 800;
+    text-decoration: none;
+}
+
+canvas{
+    width: 1000px!important;
+}
+wave{
+    overflow: hidden!important;
+}
+#waveform{
+    width: 64.8%;
+    position: relative;
+}

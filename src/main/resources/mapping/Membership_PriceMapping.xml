@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mo.music.dao.mapper.MembershipPriceCRUD">
+	
+	<!-- 查询会员价格信息 -->
+	<select id="MembershipPriceInfo_Inquire" resultType="com.mo.music.entity.MembershipPrice">
+		select Price_ID,Membership_Name,MembershipPrice,Membership_Date,Membership_Days,Downloads from membership_Price
+	</select>
+	
+	<!-- 根据会员ID查找会员价格 -->
+	<select id="According_toMembershipPrice_ID" resultType="com.mo.music.entity.MembershipPrice">
+		select Price_ID,Membership_Name,MembershipPrice,Membership_Date,Membership_Days from membership_Price where Price_ID=#{_parameter}
+	</select>
+	
+	<!-- 自定义查询 -->
+	<select id="CustomQuery" resultType="com.mo.music.entity.MembershipPrice">
+		select Price_ID,Membership_Name,MembershipPrice,Membership_Date,Membership_Days,Downloads from membership_Price where ${_parameter}
+	</select>
+	
+	<!-- 查询下载数量 -->
+	<select id="DownloadNumberQuery" resultType="java.math.BigDecimal">
+		select Downloads from membership_Price  where ${_parameter}
+	</select>
+	
+	
+	<!-- 修改会员价格-->
+	<update id="Modify_Membership_Price" parameterType="com.mo.music.entity.MembershipPrice" flushCache="true">
+		update membership_Price 
+		<set>
+			<if test="null != MembershipPrice and '' != MembershipPrice">
+				MembershipPrice=#{MembershipPrice},
+			</if>
+			<if test="null != Downloads and '' != Downloads">
+				Downloads=#{Downloads},
+			</if>
+		</set>
+		where Price_ID=#{Price_ID}
+	</update>
+	
+	
+	
+</mapper>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mo.music.dao.mapper.UserCollectionCRUD">
+
+	<!-- 查询My_Collection-->
+	<select id="My_CollectionInquire" resultType="com.mo.music.entity.UserCollection">
+		select Collection_ID,User_ID,Song_ID from user_collection where User_ID=#{_parameter}
+	</select>
+	
+	<!-- 添加  收藏 -->
+	<insert id="UserCollection_Add" parameterType="com.mo.music.entity.UserCollection" flushCache="true">
+		insert into
+		user_collection(User_ID,Song_ID) 
+		values
+		(
+		#{User_ID},
+		#{Song_ID}
+		)
+	</insert>
+	
+	<!-- 删除当前收藏 -->
+	<delete id="Delete_UserCollection" parameterType="java.math.BigDecimal">  
+        DELETE FROM user_collection WHERE Collection_ID = #{_parameter}
+	</delete>
+	
+	<!-- 一键删除收藏 -->
+	<delete id="BatchDelete_UserCollection" parameterType="java.math.BigDecimal">  
+        DELETE FROM user_collection WHERE User_ID = #{_parameter}
+	</delete>
+	
+	<!-- 批量删除收藏 -->
+	<delete id="batchDeletion" parameterType="java.util.List">  
+        DELETE FROM `user_collection` WHERE `User_ID` = 
+        <foreach collection="list" index="index" item="item">
+        	<if test="index==0">
+        		#{item.User_ID}
+        	</if>
+        </foreach>
+        and `Song_ID` in 
+        <foreach collection="list" index="index" item="item" open="(" close=")" separator=",">
+        	#{item.Song_ID}
+        </foreach>
+	</delete>
+	
+</mapper>
