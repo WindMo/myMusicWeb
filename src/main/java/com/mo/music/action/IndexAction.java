@@ -1,6 +1,7 @@
 package com.mo.music.action;
 
 import java.io.IOException;
+import java.util.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -65,9 +66,12 @@ public class IndexAction {
 	 * */
 	private StringBuffer HTMlLabe(){
 		StringBuffer Type = new StringBuffer("");
+		List<SongInfo> list = songInfoCRUD.Conditional_query(" 0=0");
+		Set<String> set = new HashSet<>();
 		// 查出 Type 总数
-		for (SongInfo info : songInfoCRUD.Conditional_query(" 0=0 group by Song_Type limit 100")) {
-			if (info.getSong_Type() != null) {
+		for (SongInfo info : list) {
+			if (info.getSong_Type() != null && !set.contains(info.getSong_Type())) {
+				set.add(info.getSong_Type());
 				Type = Type.append("<li class=\"filter-type-drop-list-item\">"
 						+ "<label class=\"filter-drop-checkbox-label\" data-classname=\"Song_Type\" data-item=\""
 						+ info.getSong_Type() + "\" onclick=\"Classification(this)\">" + info.getSong_Type() + "</label></li>");
@@ -75,9 +79,11 @@ public class IndexAction {
 		}
 		// 清空StringBuffer
 		StringBuffer Genre = new StringBuffer("");
+		Set<String> set2 = new HashSet<>();
 		// 查出所有 Genre
-		for (SongInfo info : songInfoCRUD.Conditional_query(" 0=0 group by Song_Genre limit 100")) {
-			if (info.getSong_Genre() != null) {
+		for (SongInfo info : list) {
+			if (info.getSong_Genre() != null && !set.contains(info.getSong_Genre())) {
+				set2.add(info.getSong_Genre());
 				Genre = Genre.append("<li class=\"filter-type-drop-list-item\">"
 						+ "<label class=\"filter-drop-checkbox-label\" data-classname=\"Song_Genre\" data-item=\""
 						+ info.getSong_Genre() + "\" onclick=\"Classification(this)\">" + info.getSong_Genre() + "&nbsp&nbsp&nbsp/"+songInfoCRUD.Classification_conditions_Total_Number(" Song_Genre = \""+info.getSong_Genre()+"\" ")+"</label></li>");
@@ -86,8 +92,10 @@ public class IndexAction {
 		// 清空StringBuffer
 		StringBuffer Artist = new StringBuffer("");
 		// 查出所有的 Artist
-		for (SongInfo info : songInfoCRUD.Conditional_query(" 0=0 group by Song_Artists limit 100")) {
-			if (info.getSong_Artists() != null) {
+		Set<String> set3 = new HashSet<>();
+		for (SongInfo info : list) {
+			if (info.getSong_Artists() != null && !set.contains(info.getSong_Artists())) {
+				set3.add(info.getSong_Artists());
 				Artist = Artist.append("<li class=\"filter-type-drop-list-item\">"
 						+ "<label class=\"filter-drop-checkbox-label\" data-classname=\"Song_Artists\" data-item=\""
 						+ info.getSong_Artists() + "\" onclick=\"Classification(this)\">" + info.getSong_Artists() + "</label></li>");
@@ -97,8 +105,10 @@ public class IndexAction {
 		// 清空StringBuffer
 		StringBuffer Label = new StringBuffer("");
 		// 查出所有的 Label
-		for (SongInfo info : songInfoCRUD.Conditional_query(" 0=0 group by Song_Label limit 100")) {
-			if (info.getSong_Label() != null) {
+		Set<String> set4 = new HashSet<>();
+		for (SongInfo info : list) {
+			if (info.getSong_Label() != null && !set.contains(info.getSong_Label())) {
+				set4.add(info.getSong_Label());
 				Label = Label.append("<li class=\"filter-type-drop-list-item\">"
 						+ "<label class=\"filter-drop-checkbox-label\" data-classname=\"Song_Label\" data-item=\""
 						+ info.getSong_Label() + "\" onclick=\"Classification(this)\">" + info.getSong_Label() + "</label></li>");
